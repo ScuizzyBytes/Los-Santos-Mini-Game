@@ -8,7 +8,7 @@ mixer.init()
 
 W, H = 800, 700
 
-mixer.music.load("pygame/background2.mp3")
+music = mixer.music.load("background2.mp3")
 mixer.music.set_volume(0.2)
 
 mixer.music.play(-1)
@@ -21,9 +21,9 @@ clock = pygame.time.Clock()
 fliped = True
 
 #Images 
-police_img = pygame.image.load("tief_game/police.png").convert_alpha()
-me_img = pygame.image.load("tief_game/tief.png").convert_alpha()
-background = pygame.image.load("tief_game/background.jpg").convert()
+police_img = pygame.image.load("police.png").convert_alpha()
+me_img = pygame.image.load("tief.png").convert_alpha()
+background = pygame.image.load("background.jpg").convert()
 
 me_img.set_colorkey((255, 255, 255))
 police_img.set_colorkey("#F5CDFF")
@@ -104,7 +104,6 @@ while running:
         
         screen.blit(text_surface, (240, 150))
         screen.blit(text_surface2, (230, 250))
-        
         if keys2[pygame.K_q]:
             game_over = False
             
@@ -174,6 +173,9 @@ while running:
     
     if coins == 10:
         Win = True
+        mixer.music.load("Win_Sound.mp3")
+        mixer.music.set_volume(0.5)
+        mixer.music.play()
     
     pygame.display.flip()
     clock.tick(60)
