@@ -1,7 +1,7 @@
 # 🌴 Los Santos — 2D Python Pygame Action Game
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Python-3.14-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Pygame-2.x-green?style=for-the-badge&logo=pygame&logoColor=white" alt="Pygame">
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status">
 </p>
