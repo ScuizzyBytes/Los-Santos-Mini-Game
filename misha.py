@@ -32,6 +32,9 @@ scale_police = pygame.transform.scale(police_img, (60, 70))
 scale_tief = pygame.transform.scale(me_img, (60, 70))
 scale_background = pygame.transform.scale(background, (W, H))
 
+small_bg = pygame.transform.smoothscale(scale_background, (W // 20, H // 20))
+blured_background = pygame.transform.smoothscale(small_bg, (W, H))
+
 fliped_tief = pygame.transform.flip(scale_tief, True, False)
 
 overlay = pygame.Surface((W, H))
@@ -65,13 +68,14 @@ while running:
             running = False  
     
     if Win:
-        screen.blit(scale_background, (0, 0))
+        screen.blit(blured_background, (0, 0))
+        screen.blit(overlay, (0, 0))
+        
         screen.blit(scale_police, (pos2_x, pos2_y))
         if fliped:
             screen.blit(fliped_tief, (pos_x, pos_y))
         else:
             screen.blit(scale_tief, (pos_x, pos_y))
-        screen.blit(overlay)
         keys3 = pygame.key.get_pressed()
         
         text_surface = font.render("YOU WON!!!", True, (0, 255, 0))
@@ -90,20 +94,21 @@ while running:
     
     #BUSTED Screen
     if game_over:
-        screen.blit(scale_background, (0, 0))
+        screen.blit(blured_background, (0, 0))
+        screen.blit(overlay, (0, 0))
+        
         screen.blit(scale_police, (pos2_x, pos2_y))
+        keys2 = pygame.key.get_pressed()
         if fliped:
             screen.blit(fliped_tief, (pos_x, pos_y))
         else:
             screen.blit(scale_tief, (pos_x, pos_y))
-        screen.blit(overlay)
-        keys2 = pygame.key.get_pressed()
-        
+
         text_surface = font.render("BUSTED", True, (255, 0, 0))
         text_surface2 = font2.render("Press [Q] to continue...", True, (20, 20, 20))
         
         screen.blit(text_surface, (240, 150))
-        screen.blit(text_surface2, (230, 250))
+        screen.blit(text_surface2, (200, 250))
         if keys2[pygame.K_q]:
             game_over = False
             
@@ -174,7 +179,7 @@ while running:
     if coins == 10:
         Win = True
         mixer.music.load("Win_Sound.mp3")
-        mixer.music.set_volume(0.5)
+        mixer.music.set_volume(10)
         mixer.music.play()
     
     pygame.display.flip()
