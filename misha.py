@@ -9,8 +9,7 @@ W, H = 700, 700
 mixer.music.load("pygame/background2.mp3")
 mixer.music.set_volume(0.2)
 
-if mixer.music.get_busy:
-    mixer.music.play()
+mixer.music.play(-1)
 
 screen = pygame.display.set_mode((W, H))
 pygame.display.set_caption("Los Santos")
@@ -21,6 +20,9 @@ fliped = True
 police_img = pygame.image.load("tief_game/police.png").convert_alpha()
 me_img = pygame.image.load("tief_game/tief.png").convert_alpha()
 background = pygame.image.load("tief_game/background.jpg").convert()
+
+me_img.set_colorkey((255, 255, 255))
+police_img.set_colorkey("#F5CDFF")
 
 scale_police = pygame.transform.scale(police_img, (60, 70))
 scale_tief = pygame.transform.scale(me_img, (60, 70))
