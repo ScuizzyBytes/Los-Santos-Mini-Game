@@ -8,7 +8,7 @@ mixer.init()
 
 W, H = 800, 700
 
-music = mixer.music.load("tief_game/assests/sounds/background2.mp3")
+music = mixer.music.load("assests/sounds/background2.mp3")
 mixer.music.set_volume(0.2)
 
 mixer.music.play(-1)
@@ -20,11 +20,11 @@ running = True
 clock = pygame.time.Clock()
 fliped = True
 #Images 
-coins_image = pygame.image.load("tief_game/assests/images/coin.png").convert_alpha()
-police_img = pygame.image.load("tief_game/assests/images/police.png").convert_alpha()
-me_img = pygame.image.load("tief_game/assests/images/tief.png").convert_alpha()
-background = pygame.image.load("tief_game/assests/images/background.jpg").convert()
-icon = pygame.image.load("tief_game/assests/images/Icon.png").convert_alpha()
+coins_image = pygame.image.load("assests/images/coin.png").convert_alpha()
+police_img = pygame.image.load("assests/images/police.png").convert_alpha()
+me_img = pygame.image.load("assests/images/tief.png").convert_alpha()
+background = pygame.image.load("assests/images/background.jpg").convert()
+icon = pygame.image.load("assests/images/Icon.png").convert_alpha()
 icon.set_colorkey((0, 0, 0))
 coins_image.set_colorkey((255, 255, 255))
 
@@ -208,7 +208,7 @@ while running:
     
     if len(coins) == 20:
         Win = True
-        mixer.music.load("tief_game/assests/sounds/Win_Sound.mp3")
+        mixer.music.load("assests/sounds/Win_Sound.mp3")
         mixer.music.set_volume(1.0)
         mixer.music.play()
     
