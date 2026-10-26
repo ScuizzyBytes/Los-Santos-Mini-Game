@@ -1,4 +1,4 @@
-# 🌴 Los Santos Mini Game (Pygame Edition)
+# 🌴 Los Santos Mini Game (Pygame Edition)[BETA]
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue?style=for-the-badge&logo=python)
 ![Pygame](https://img.shields.io/badge/Library-Pygame-green?style=for-the-badge&logo=pygame)
