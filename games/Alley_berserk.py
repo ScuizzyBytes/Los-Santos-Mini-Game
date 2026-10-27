@@ -3,7 +3,9 @@ import random
 import sys
 
 import pygame
+from pygame import mixer
 
+mixer.init()
 pygame.init()
 
 WALK_ANIM = "/home/misha/Los-Santos-Mini-Game/9GAMES/assests/images/Alley_berserk/walk_anim"
@@ -12,6 +14,7 @@ ATAK_ANIM = "/home/misha/Los-Santos-Mini-Game/9GAMES/assests/images/Alley_berser
 background = pygame.image.load("9GAMES/assests/images/Alley_berserk/background.png")
 people_px = pygame.image.load("9GAMES/assests/images/Alley_berserk/people.png")
 blood_px = pygame.image.load("9GAMES/assests/images/Alley_berserk/blood.png")
+icon_img = pygame.image.load("9GAMES/assests/images/Alley_berserk/Icon.png")
 
 scaled_background = pygame.transform.scale(background, (1408, 768))
 scaled_people = pygame.transform.scale(people_px, (50, 60))
@@ -26,6 +29,12 @@ clock = pygame.time.Clock()
 attacking = False
 attacking_index = 0
 
+mixer.music.load("9GAMES/assests/sounds/backgound_carcer.wav")
+mixer.music.set_volume(0.5)
+mixer.music.play(-1)
+
+icon = pygame.display.set_icon(icon_img)
+
 names = sorted(
     f for f in os.listdir(WALK_ANIM)
     if f.startswith("pixel_frame") and f.lower().endswith(".png")
@@ -35,7 +44,7 @@ print(names)
 frames = []
 for name in names:
     img_anim = pygame.image.load(os.path.join(WALK_ANIM, name)).convert_alpha()
-    frames.append(pygame.transform.scale(img_anim, (80, 80)))
+    frames.append(pygame.transform.scale(img_anim, (60, 80)))
     
 attacking_anim = sorted(
     n for n in os.listdir(ATAK_ANIM)
@@ -46,24 +55,22 @@ print(attacking_anim)
 frames1 = []
 for name1 in attacking_anim:
     img_anim2 = pygame.image.load(os.path.join(ATAK_ANIM, name1)).convert_alpha()
-    frames1.append(pygame.transform.scale(img_anim2, (80, 80)))
+    frames1.append(pygame.transform.scale(img_anim2, (60, 80)))
 
 x, y = 170, 170
 flip = False
 running = True
 
+#Peoples
 peoples = []
 for j in range(20):
     posx = random.randint(200, W - 200)
     posy = random.randint(0, H)
-    peoples.append({"posx": posx, "posy": posy})
+    peoples.append({"posx": posx, "posy": posy, "peoples_rect": pygame.Rect(posx, posy, 50, 60)})
     
-def blood_squash(blood):
-    if flip:
-        screen.blit(pygame.transform.flip(blood, True, False), (x - 20, y))
-    else:
-        screen.blit(blood, (x + 50, y))
+player_rect = pygame.Rect(x, y, 80, 80)
 
+# main game
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -74,9 +81,6 @@ while running:
             
     keys = pygame.key.get_pressed()
     moving = False
-    
-    index1 = (pygame.time.get_ticks() // 80) % len(frames1) if moving else 0
-    sprite2 = pygame.transform.flip(frames1[index1], flip, False)
     
     if not attacking:
         if keys[pygame.K_a]:
@@ -97,11 +101,10 @@ while running:
     screen.blit(scaled_background, (0, 0))
     
     for people in peoples:
-        screen.blit(scaled_people, (people["posx"], people["posy"]))
+        screen.blit(scaled_people, (people["peoples_rect"].topleft))
     
-    if attacking and not flip:
+    if attacking:
         attacking_index += 0.3
-        blood_squash(scaled_blood)
         if attacking_index >= len(frames1):
             attacking = False
             attacking_index = 0
@@ -109,7 +112,6 @@ while running:
     else:
         index = (pygame.time.get_ticks() // 80) % len(frames) if moving else 0
         current_sprite = frames[index]
-        
     
     sprite_to_draw = pygame.transform.flip(current_sprite, flip, False)
     
